@@ -2,10 +2,18 @@
 const express = require('express');
 // Bring in path module (it's a node module!!!)
 const path = require('path');
+// Bring in members
+const members = require('./Members');
+// Bring in middleware
+const logger = require('./middleware/logger');
 
 // Initialize a variable with express
 const app = express();
 
+// Initialize the custom middleware
+// app.use(logger);
+
+/*
 // Create a route - When we go to a webpage, it's a GET request
 // Takes in a request and response - Every route will have access to these two objects
 app.get('/', (req, res) => {
@@ -15,6 +23,16 @@ app.get('/', (req, res) => {
   // Transfer a file from the given path
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+This method is not very useful because it is very specific. We need it to be dynamic
+*/
+
+// Return a JSON file so that we can use in react and other APIs
+// Automatically returns JSON
+app.get('/api/members', (req, res) => res.json(members));
+
+// Set static FOLDER - Express allows us to create a static server that just serves html, css, images, etc.
+// .use() is a method we use when we need middleware
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Look for environment variable called port
 const PORT = process.env.PORT || 5000;

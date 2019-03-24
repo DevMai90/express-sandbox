@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/DevMai90/express-sandbox#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
