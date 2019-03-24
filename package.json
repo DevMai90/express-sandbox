@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/DevMai90/express-sandbox/issues"
   },
-  "homepage": "https://github.com/DevMai90/express-sandbox#readme"
+  "homepage": "https://github.com/DevMai90/express-sandbox#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
 }
