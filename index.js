@@ -9,26 +9,33 @@ const logger = require('./middleware/logger');
 // Initialize a variable with express
 const app = express();
 
-// Initialize the custom middleware
-// app.use(logger);
-
 /*
 // Create a route - When we go to a webpage, it's a GET request
 // Takes in a request and response - Every route will have access to these two objects
 app.get('/', (req, res) => {
   // res has this method. Sends something to the browser. Not used too much
   // res.send('<h1>Hello World!!</h1>');
-
+  
   // Transfer a file from the given path
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 This method is not very useful because it is very specific. We need it to be dynamic
 */
 
+// Initialize the custom middleware
+// app.use(logger);
+
+// Body Parser Middleware
+// Allows us to handle raw JSON
+app.use(express.json());
+// Allows us to handle form submissions
+app.use(express.urlencoded({ extended: false }));
+
 // Set static FOLDER - Express allows us to create a static server that just serves html, css, images, etc.
 // .use() is a method we use when we need middleware
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Members API routes
 // We're using the routes right here. Already specifying /api/members
 app.use('/api/members', require('./routes/api/members'));
 
