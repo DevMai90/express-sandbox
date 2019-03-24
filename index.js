@@ -2,8 +2,7 @@
 const express = require('express');
 // Bring in path module (it's a node module!!!)
 const path = require('path');
-// Bring in members
-const members = require('./Members');
+
 // Bring in middleware
 const logger = require('./middleware/logger');
 
@@ -26,26 +25,12 @@ app.get('/', (req, res) => {
 This method is not very useful because it is very specific. We need it to be dynamic
 */
 
-// Return a JSON file so that we can use in react and other APIs
-// Automatically returns JSON
-app.get('/api/members', (req, res) => res.json(members));
-
-// Get Single Member
-app.get('/api/members/:id', (req, res) => {
-  // Run .some(). Returns true the moment it finds a truth value
-  const found = members.some(member => member.id === parseInt(req.params.id));
-  if (found) {
-    // req.params.id sends the id as a string, but our array is a number!
-    res.json(members.filter(member => member.id === parseInt(req.params.id)));
-  } else {
-    // Status 400 means bad request - Return JSON
-    res.status(400).json({ msg: `No member with the id of ${req.params.id}` });
-  }
-});
-
 // Set static FOLDER - Express allows us to create a static server that just serves html, css, images, etc.
 // .use() is a method we use when we need middleware
 app.use(express.static(path.join(__dirname, 'public')));
+
+// We're using the routes right here. Already specifying /api/members
+app.use('/api/members', require('./routes/api/members'));
 
 // Look for environment variable called port
 const PORT = process.env.PORT || 5000;
